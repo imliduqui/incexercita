@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas Pixel Manipulation</title>
+</head>
+<body>
+<canvas id="myCanvas" width="400" height="400" style="border:1px solid #000000;"></canvas>
+<script>
+    // Get the canvas element and its context
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Fill the canvas with a solid color
+    ctx.fillStyle = 'lightblue';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Function to set a pixel's color at a specific position
+    function setPixel(ctx, x, y, r, g, b, a) {
+        const imageData = ctx.getImageData(x, y, 1, 1); // Get the pixel data
+        const data = imageData.data;
+        
+        // Set the RGBA values
+        data[0] = r; // Red
+        data[1] = g; // Green
+        data[2] = b; // Blue
+        data[3] = a; // Alpha
+
+        // Apply the image data back to the canvas
+        ctx.putImageData(imageData, x, y);
+    }
+
+    // Example usage: Change the color of a pixel at position (50, 50)
+    const position = { x: 50, y: 50 }; // user-space coordinates of the pixel applied
+    setPixel(ctx, position.x, position.y, 255, 0, 0, 255); // Set the pixel to red
+</script>
+</body>
+</html>
